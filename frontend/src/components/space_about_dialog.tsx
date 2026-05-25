@@ -1,3 +1,4 @@
+import heroSpaceImg from "../assets/heroSpaceImg.webp"
 interface Props {
     open: boolean;
     onClose: () => void;
@@ -29,8 +30,7 @@ export default function SpaceAboutDatasetDialog({
                         h-70 bg-cover bg-center relative
                     "
                     style={{
-                        backgroundImage:
-                            "url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2070&auto=format&fit=crop')"
+                        backgroundImage: `url(${heroSpaceImg})`
                     }}
                 >
 

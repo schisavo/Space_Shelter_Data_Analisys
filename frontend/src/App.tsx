@@ -7,6 +7,9 @@ import SpaceTools from './components/space_tools'
 import ShelterTools from './components/shelter_tools'
 import { initializeApp } from "./services/bootstrap";
 
+import dogImage from "./assets/dog.webp";
+import launchImage from "./assets/launch.webp";
+
 function App() {
   /*
   ========================================================
@@ -247,8 +250,8 @@ function App() {
           "
           style={{
             backgroundImage: `url(${isAnimalView
-              ? 'https://media.istockphoto.com/id/1322562946/photo/dog-shelter-animal-rescue-adoption-vertical.jpg?s=170667a&w=0&k=20&c=bxyOblRgdsfWw3QTkEqk2M8vxkpVvvlrZTZZSSZjaO8='
-              : 'https://images2.alphacoders.com/137/1372690.png'
+              ? dogImage
+              : launchImage
             })`,
           }}
         >

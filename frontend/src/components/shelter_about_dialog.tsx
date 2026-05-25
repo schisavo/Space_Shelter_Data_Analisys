@@ -1,3 +1,4 @@
+import heroAnimalImg from "../assets/heroAnimalimg.webp"
 interface Props {
     open: boolean;
     onClose: () => void;
@@ -47,8 +48,7 @@ export default function ShelterAboutDatasetDialog({
                         relative
                     "
                     style={{
-                        backgroundImage:
-                            "url('https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=2070&auto=format&fit=crop')"
+                        backgroundImage: `url(${heroAnimalImg})`
                     }}
                 >
 
