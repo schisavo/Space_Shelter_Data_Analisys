@@ -1,33 +1,34 @@
-# Space_Shelter_Data_Analisys
-Proyecto sobre unir 2 datasets en un uni-proyecto para Analitica de Datos e IA.
+# 🚀 Space_Shelter_Data_Analisys
 
-# 🚀 Space Shelter Data Analysis
+Proyecto de **Ciencia de Datos + Machine Learning Full Stack** que integra dos dominios distintos:
 
-Proyecto de análisis de datos y Machine Learning
-usando FastAPI + React + Scikit-Learn.
+- 🐾 Predicción de resultados en refugios de animales  
+- 🚀 Predicción de éxito en lanzamientos espaciales  
 
-## 📦 Tecnologías
+Construido con **FastAPI + React + Scikit-Learn + TypeScript**
 
-- FastAPI
-- React
-- TypeScript
-- TailwindCSS
-- Scikit-Learn
-- Pandas
+---
 
-## 📊 Datasets
+# 📌 Descripción del proyecto
 
-### 🚀 Space Launch Dataset
-- Launches
-- Rockets
-- Agencies
-- Success prediction
+Este proyecto combina dos pipelines completos de Machine Learning aplicados a problemas reales:
 
-### 🐾 Shelter Animal Dataset
-- Shelter outcomes
-- Adoption prediction
+## 🐾 Shelter Animal Analysis
+Modelo que predice el resultado de un animal dentro de un refugio:
 
-## ----------------- ⚙️ Instalación  -----------------
+- Adopción
+- Transferencia
+- Eutanasia
+- Otros resultados
+
+Variables utilizadas:
+- Edad del animal
+- Tipo (Dog, Cat, etc.)
+- Sexo / esterilización
+- Raza
+- Color
+
+---
 
 ### Backend
 
@@ -42,3 +43,16 @@ usando FastAPI + React + Scikit-Learn.
     npm install
     npm run dev
 ```
+
+## --------------------------  Ports   --------------------------
+
+### Backend
+
+```bash
+    Uvicorn running on http://127.0.0.1:8000
+```
+### Frontend
+```bash
+    Local:   http://localhost:5173/
+```
+# ----------------------------------------------------------------
