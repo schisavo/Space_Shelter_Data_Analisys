@@ -44,7 +44,7 @@ Variables utilizadas:
     npm run dev
 ```
 
-## --------------------------  Ports   --------------------------
+## Ports
 
 ### Backend
 
@@ -55,4 +55,4 @@ Variables utilizadas:
 ```bash
     Local:   http://localhost:5173/
 ```
-# ----------------------------------------------------------------
+---
