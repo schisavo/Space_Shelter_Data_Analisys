@@ -58,7 +58,7 @@ function App() {
       {/* =====================================================
             CARD PRINCIPAL
       ====================================================== */}
-      <div className="relative w-250 h-220 bg-white rounded-2xl shadow-2xl overflow-hidden flex">
+      <div className="relative w-250 h-200 bg-white rounded-2xl shadow-2xl flex overflow-hidden">
         {/* =====================================================
               CONTENIDO INTERNO
         ====================================================== */}
@@ -72,7 +72,7 @@ function App() {
               opacity: isAnimalView ? 0 : 1,
             }}
             transition={{ duration: 0.6 }}
-            className="w-1/2 h-full flex flex-col justify-center items-center px-14"
+            className="w-1/2 h-full flex flex-col items-center px-14 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300"
           >
 
             {/* ---------------- FORM ---------------- */}
