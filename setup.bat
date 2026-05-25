@@ -10,7 +10,7 @@ cd backend
 
 echo.
 echo [2/5] Creando entorno virtual...
-python -m venv .venv
+py -m venv .venv
 
 echo.
 echo [3/5] Activando entorno virtual...
