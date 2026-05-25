@@ -48,6 +48,7 @@ export default function ShelterDatasetDialog({
     */
     return (
         <div
+            onClick={onClose}
             className="
                 fixed
                 inset-0
@@ -60,6 +61,7 @@ export default function ShelterDatasetDialog({
             " >
             {/* CARD */}
             <div
+                onClick={(e) => e.stopPropagation()}
                 className="
                     w-225
                     max-h-[90vh]
