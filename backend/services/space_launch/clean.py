@@ -45,8 +45,15 @@ def clean_dataset(df):
     df = create_target(df)
 
     # eliminar columnas basura si existen
+    df = df[df["exito"].notna()].copy()
+
     df = df.drop(columns=["estado_abrev"], errors="ignore")
 
-    df = df.dropna()
+    df = df.dropna(subset=[
+        "agencia_nombre",
+        "cohete_nombre",
+        "anio",
+        "mes"
+    ])
 
     return df

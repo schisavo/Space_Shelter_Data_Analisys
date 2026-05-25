@@ -1,9 +1,9 @@
 import pandas as pd
-from services.space_launch.store import MODEL, ENCODERS, FEATURES
+from services.store import MODEL_SPACE, ENCODERS, FEATURES
 
 def predict_launch(data: dict):
 
-    model = MODEL.get("rf")
+    model = MODEL_SPACE.get("rf")
     if model is None:
         return {"error": "Modelo no entrenado"}
 

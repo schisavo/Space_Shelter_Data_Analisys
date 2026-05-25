@@ -3,8 +3,11 @@ from services.space_launch.clean import clean_dataset
 from services.space_launch.pipeline import load_dataset
 from services.space_launch.predict import predict_launch
 from services.space_launch.train import train_model
-from services.space_launch.store import DATA_SPACE
+from services.store import DATA_SPACE, MODEL_SPACE
+from fastapi import APIRouter, HTTPException
+from schemas.space.train_schema import TrainConfig
 import numpy as np
+
 
 router = APIRouter()
 
@@ -29,30 +32,42 @@ def clean():
     DATA_SPACE["clean"] = df_clean
     return {"rows": len(df_clean)}
 
+# =====================================================
+# MODEL
+# =====================================================
 
-@router.get("/model/train")
-def train():
+@router.post("/model/train")
+def train(config: TrainConfig):
     df = DATA_SPACE.get("clean")
-    return train_model(df)
 
+    if df is None:
+        raise HTTPException(
+            status_code=400,
+            detail="Dataset not loaded"
+        )
+
+    return train_model(
+        df,
+        n_estimators=config.n_estimators,
+        max_depth=config.max_depth,
+        test_size=config.test_size,
+        random_state=config.random_state
+    )
+
+@router.get("/model/info")
+def model_info():
+    if "info" not in MODEL_SPACE:
+        raise HTTPException(
+            status_code=400,
+            detail="Model not trained"
+        )
+    return MODEL_SPACE["info"]
 
 @router.post("/model/predict")
 def predict(data: dict):
+    if "rf" not in MODEL_SPACE:
+        raise HTTPException(
+            status_code=400,
+            detail="Model not trained"
+        )
     return predict_launch(data)
-
-# http://127.0.0.1:8000/space/model/predict
-"""
-{
-  "agencia_tipo": "Government",
-  "agencia_nombre": "NASA",
-  "cohete_nombre": "Falcon 9",
-  "cohete_familia": "Falcon",
-  "mision_tipo": "Orbital",
-  "orbita_abrev": "LEO",
-  "pad_pais": "US",
-  "anio": 2020,
-  "mes": 5,
-  "pad_latitud": 28.5,
-  "pad_longitud": -80.6
-}
-"""

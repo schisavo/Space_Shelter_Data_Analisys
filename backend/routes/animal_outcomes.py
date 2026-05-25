@@ -3,7 +3,7 @@ import pandas as pd
 
 from services.animal_outcome.train import train_model
 from services.animal_outcome.predict import predict_launch
-from services.space_launch.store import DATA_ANIMALS
+from services.store import DATA_ANIMALS, MODEL_ANIMALS
 
 router = APIRouter()
 
@@ -27,11 +27,31 @@ def clean():
     df = DATA_ANIMALS.get("raw")
     return {"rows": len(df.dropna())}
 
-@router.get("/model/train")
-def train():
+# =====================================================
+# MODEL
+# =====================================================
+
+@router.post("/model/train")
+def train(data: dict):
     df = DATA_ANIMALS.get("raw")
-    return train_model(df)
+    return train_model(
+        df=df,
+        n_estimators=data.get("n_estimators", 200),
+        max_depth=data.get("max_depth", 10),
+        test_size=data.get("test_size", 0.2),
+        random_state=data.get("random_state", 42),
+        class_weight=data.get("class_weight", "balanced")
+    )
+
 
 @router.post("/model/predict")
 def predict(data: dict):
     return predict_launch(data)
+
+
+@router.get("/model/info")
+def model_info():
+
+    return MODEL_ANIMALS.get("info", {
+        "error": "Modelo no entrenado"
+    })

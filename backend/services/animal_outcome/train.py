@@ -6,10 +6,17 @@ from sklearn.metrics import (
     confusion_matrix
 )
 
-MODEL = {}
+from services.store import MODEL_ANIMALS
 
 
-def train_model(df):
+def train_model(
+    df,
+    n_estimators=200,
+    max_depth=10,
+    test_size=0.2,
+    random_state=42,
+    class_weight="balanced"
+):
 
     from services.animal_outcome.pipeline import load_and_prepare
 
@@ -26,8 +33,8 @@ def train_model(df):
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
-        test_size=0.2,
-        random_state=42
+        test_size=test_size,
+        random_state=random_state
     )
 
     # =====================================================
@@ -35,10 +42,10 @@ def train_model(df):
     # =====================================================
 
     model = RandomForestClassifier(
-        n_estimators=200,
-        random_state=42,
-        class_weight="balanced",
-        max_depth=10
+        n_estimators=n_estimators,
+        random_state=random_state,
+        class_weight=class_weight,
+        max_depth=max_depth
     )
 
     model.fit(X_train, y_train)
@@ -63,8 +70,21 @@ def train_model(df):
     # SAVE MODEL
     # =====================================================
 
-    MODEL["rf"] = model
-    MODEL["columns"] = X.columns
+    MODEL_ANIMALS["rf"] = model
+    MODEL_ANIMALS["columns"] = X.columns
+
+    MODEL_ANIMALS["info"] = {
+        "model": "RandomForestClassifier",
+        "accuracy": round(acc, 4),
+        "features": list(X.columns),
+        "parameters": {
+            "n_estimators": n_estimators,
+            "max_depth": max_depth,
+            "test_size": test_size,
+            "random_state": random_state,
+            "class_weight": class_weight
+        }
+    }
 
     # =====================================================
     # DEBUG
@@ -87,12 +107,20 @@ def train_model(df):
     # =====================================================
 
     return {
+        "message": "Modelo entrenado correctamente",
         "accuracy": round(acc, 4),
         "features": list(X.columns),
+        "parameters": {
+            "n_estimators": n_estimators,
+            "max_depth": max_depth,
+            "test_size": test_size,
+            "random_state": random_state,
+            "class_weight": class_weight
+        },
         "confusion_matrix": matrix.tolist(),
         "report": report
     }
 
 
 def get_model():
-    return MODEL
+    return MODEL_ANIMALS

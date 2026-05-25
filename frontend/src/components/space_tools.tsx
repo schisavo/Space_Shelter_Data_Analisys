@@ -1,14 +1,16 @@
-import { Database, Info, LineChart } from "lucide-react";
+import { Brain, Database, Info, LineChart } from "lucide-react";
 import { useState } from "react";
 import SpaceDatasetDialog from "./space_dataset_dialog";
 import SpaceAboutDatasetDialog from "./space_about_dialog";
 import SpaceAboutDatasetPredictionDialog from "./space_prediction_dialog";
+import SpaceModelTrainingDialog from "./space_about_dataset_prediction_dialog";
 
 
 export default function SpaceTools() {
     const [datasetOpen, setDatasetOpen] = useState(false);
     const [aboutOpen, setAboutOpen] = useState(false);
     const [predictionOpen, setPredictionOpen] = useState(false);
+    const [modelOpen, setModelOpen] = useState(false);
 
     return (
         <>
@@ -57,6 +59,26 @@ export default function SpaceTools() {
                     ">
                     <Info className="w-10 h-10 m-2" />
                 </button>
+                {/* MODEL BUTTON */}
+                <button
+                    onClick={() => setModelOpen(true)}
+                    className="
+                        w-12
+                        h-12
+                        rounded-xl
+                        text-blue-600
+                        hover:bg-blue-600
+                        hover:text-white
+                        transition-all
+                        flex
+                        items-center
+                        justify-center
+                        shadow-md
+                        m-2
+                    "
+                >
+                    <Brain className="w-10 h-10 m-2" />
+                </button>
                 {/* DATASET BUTTON */}
                 <button
                     onClick={() => setDatasetOpen(true)}
@@ -104,6 +126,11 @@ export default function SpaceTools() {
                 open={datasetOpen}
                 onClose={() => setDatasetOpen(false)}
             />
+
+            <SpaceModelTrainingDialog
+                            open={modelOpen}
+                            onClose={() => setModelOpen(false)}
+                        />
 
             {/* =====================================================
                     DIALOGS

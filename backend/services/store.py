@@ -1,7 +1,10 @@
 # services/space_launch/store.py
-DATA_SPACE   = {}
+DATA_SPACE = {}
+MODEL_SPACE = {}
+
 DATA_ANIMALS = {}
-MODEL = {}
+MODEL_ANIMALS= {}
+
 ENCODERS = {}
 FEATURES = []
 TARGET = "exito"

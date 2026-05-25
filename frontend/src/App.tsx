@@ -58,7 +58,7 @@ function App() {
       {/* =====================================================
             CARD PRINCIPAL
       ====================================================== */}
-      <div className="relative w-250 h-200 bg-white rounded-2xl shadow-2xl overflow-hidden flex">
+      <div className="relative w-250 h-220 bg-white rounded-2xl shadow-2xl overflow-hidden flex">
         {/* =====================================================
               CONTENIDO INTERNO
         ====================================================== */}

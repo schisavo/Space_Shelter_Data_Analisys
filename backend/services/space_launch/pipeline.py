@@ -25,25 +25,35 @@ def load_dataset(max_records=200):
     registros = []
 
     for launch in all_launches:
-        fecha = launch.get("net")
+        fecha_raw = launch.get('net', None)
         anio, mes = None, None
 
-        if fecha:
-            dt = pd.to_datetime(fecha, utc=True)
-            anio, mes = dt.year, dt.month
+        if fecha_raw:
+            fecha = pd.to_datetime(fecha_raw, utc=True)
+            anio = fecha.year
+            mes  = fecha.month
 
         registros.append({
-            "agencia_tipo": launch.get("launch_service_provider", {}).get("type"),
-            "agencia_nombre": launch.get("launch_service_provider", {}).get("name"),
-            "cohete_nombre": launch.get("rocket", {}).get("configuration", {}).get("name"),
-            "cohete_familia": launch.get("rocket", {}).get("configuration", {}).get("family"),
-            "orbita_abrev": launch.get("mission", {}).get("orbit", {}).get("abbrev") if launch.get("mission") else None,
-            "pad_pais": launch.get("pad", {}).get("location", {}).get("country_code"),
-            "pad_latitud": launch.get("pad", {}).get("latitude"),
-            "pad_longitud": launch.get("pad", {}).get("longitude"),
-            "anio": anio,
-            "mes": mes,
-            "estado_abrev": launch.get("status", {}).get("abbrev")
+            'id':             launch.get('id', None),
+            'nombre':         launch.get('name', None),
+            'estado_nombre':  launch.get('status', {}).get('name', None),
+            'estado_abrev':   launch.get('status', {}).get('abbrev', None),
+            'cohete_nombre':  launch.get('rocket', {}).get('configuration', {}).get('name', None) if launch.get('rocket') else None,
+            'cohete_familia': launch.get('rocket', {}).get('configuration', {}).get('family', None) if launch.get('rocket') else None,
+            'agencia_nombre': launch.get('launch_service_provider', {}).get('name', None),
+            'agencia_tipo':   launch.get('launch_service_provider', {}).get('type', None),
+            'orbita_abrev':   launch.get('mission', {}).get('orbit', {}).get('abbrev', None)
+                if launch.get('mission') and launch['mission'].get('orbit') else None,
+            'mision_tipo':    launch.get('mission', {}).get('type', None) if launch.get('mission') else None,
+            'pad_pais':       launch.get('pad', {}).get('location', {}).get('country_code', None)
+                if launch.get('pad') and launch['pad'].get('location') else None,
+            'pad_latitud':    float(launch['pad']['latitude']) if launch.get('pad') and launch['pad'].get('latitude') else None,
+            'pad_longitud':   float(launch['pad']['longitude']) if launch.get('pad') and launch['pad'].get('longitude') else None,
+            'anio':           anio,
+            'mes':            mes,
+            'estado_abrev':   launch.get('status', {}).get('abbrev', None)
         })
 
-    return pd.DataFrame(registros)
+    df_raw = pd.DataFrame(registros)
+
+    return df_raw
